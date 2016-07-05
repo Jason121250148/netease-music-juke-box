@@ -1,0 +1,23 @@
+{
+  "name": "netease-music-juke-box",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jason121250148/netease-music-juke-box.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jason121250148/netease-music-juke-box/issues"
+  },
+  "homepage": "https://github.com/Jason121250148/netease-music-juke-box#readme",
+  "devDependencies": {
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
