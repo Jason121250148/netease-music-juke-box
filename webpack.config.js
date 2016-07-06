@@ -6,12 +6,13 @@ module.exports = {
     context: path.resolve(__dirname, "./src"),
     entry: {
         vendor: [ "jquery" ],
+        nju: [ "./nju/resource/index.less" ],
         nm: [ "./nm/index.js", "./nm/resource/index.less" ]
     },
     output: {
         path: "./assets",
         publicPath: "/assets",
-        filename: "[name]/bundle.js"
+        filename: "[name]/bundle.js"//name对应entry的key：vendor和nm
     },
     module: {
         loaders: [
@@ -24,7 +25,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")//这样不会把css编译到js文件中，会单独生成
             }
         ]
     },
@@ -34,7 +35,7 @@ module.exports = {
             "jQuery": "jquery",
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
+            name: "vendor",//对应entry的vendor
             filename: "vendor.js",
             minChunks: Infinity
         }),
