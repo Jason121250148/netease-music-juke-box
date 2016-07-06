@@ -19,7 +19,7 @@ export default class View extends ManageObject
         return "div";
     }
 
-    
+
 
     get subviews()
     {
@@ -53,7 +53,8 @@ export default class View extends ManageObject
             }
             view._parent = this;
             this._subviews.push(view);
-            this.$container.append(view.$element);
+            view.plaeAt(this.$container);
+            // this.$container.append(view.$element);
         }
     }
 
@@ -104,6 +105,11 @@ export default class View extends ManageObject
         }
     }
 
+    placeAt(target)
+    {
+        const $target = (target instanceof jQuery ? target : $(target));
+        $target.append(this.$element);
+    }
 
     $(...args)
     {

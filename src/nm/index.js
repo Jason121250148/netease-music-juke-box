@@ -11,16 +11,23 @@
 //         trackList.tracks = res.result.tracks;
 //     });
 // };
-import PlayListView from "./view/PlayListView.js";
-import Panel from "./panel/Panel.js";
+
+
+
+// import PlayListView from "./view/PlayListView.js";
+// import Panel from "./panel/Panel.js";
+import Application from "../nm/app/Application.js";
 
 function main()
 {
-    const playlist = new PlayListView("play-list");
-    const panel = new Panel("nm-panel");
-    panel.title = "Panel-Title";
-    panel.addSubView(playlist);
-    $(document.body).append(panel.$element);
+    // const playlist = new PlayListView("play-list");
+    // const panel = new Panel("nm-panel");
+    // panel.title = "Panel-Title";
+    // panel.addSubView(playlist);
+    // $(document.body).append(panel.$element);
+    const app = new Application();
+    app.placeAt(document.body);
+    app.run();
 }
 
 $(main);
