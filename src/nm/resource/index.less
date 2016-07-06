@@ -20,8 +20,17 @@ h1, h2, h3
 
     > header
     {
+        display: flex;
+        align-items: center;
         flex: 0 0 @nm-app-header-height;
+        // height: @nm-app-header-height;
+        color: white;
         background: @nm-primary-color;
+
+        > h1
+        {
+            margin-left: 20px;
+        }
     }
     > main
     {

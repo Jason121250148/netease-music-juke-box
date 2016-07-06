@@ -43,7 +43,7 @@ export default class View extends ManageObject
 
 
 
-    addSubView(view)
+    addSubview(view, $container = this.$container)
     {
         if (view instanceof View)
         {
@@ -53,22 +53,21 @@ export default class View extends ManageObject
             }
             view._parent = this;
             this._subviews.push(view);
-            view.plaeAt(this.$container);
-            // this.$container.append(view.$element);
+            view.placeAt($container);
         }
     }
 
-    addSubViews(views)
+    addSubviews(views, $container = this.$container)
     {
         if (Array.isArray(views))
         {
             views.forEach(view => {
-                this.addSubView(view);
+                this.addSubview(view, $container);
             });
         }
     }
 
-    removeSubView(view, neverUseAgain = false)
+    removeSubview(view, neverUseAgain = false)
     {
         if (view instanceof View)
         {
@@ -93,7 +92,7 @@ export default class View extends ManageObject
     {
         while (this._subviews.length > 0)
         {
-            this.removeSubView(this._subviews[0], neverUseAgain);
+            this.removeSubview(this._subviews[0], neverUseAgain);
         }
     }
 
@@ -101,7 +100,7 @@ export default class View extends ManageObject
     {
         if (this.parent)
         {
-            this.parent.removeSubView(this);
+            this.parent.removeSubview(this);
         }
     }
 
