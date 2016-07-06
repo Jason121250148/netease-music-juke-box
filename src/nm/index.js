@@ -23,7 +23,7 @@ function main()
     // const playlist = new PlayListView("play-list");
     // const panel = new Panel("nm-panel");
     // panel.title = "Panel-Title";
-    // panel.addSubView(playlist);
+    // panel.addSubview(playlist);
     // $(document.body).append(panel.$element);
     const app = new Application();
     app.placeAt(document.body);
