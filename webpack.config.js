@@ -1,44 +1,58 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const path = require("path");
+"use strict";
+
 const webpack = require("webpack");
+const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    context: path.resolve(__dirname, "./src"),
+    context: path.resolve("./src"),
+
     entry: {
         vendor: [ "jquery" ],
-        // nju: [ "./nju/resource/index.less" ],
-        nm: [ "./nm/index.js", "./nm/resource/index.less" ]
+        nm: ["./nm/index.js", "./nm/resource/index.less" ]
     },
+
     output: {
-        path: "./assets",
+        path: path.resolve("./assets"),
         publicPath: "/assets",
-        filename: "[name]/bundle.js"//name对应entry的key：vendor和nm
+        filename: "[name]/bundle.js"
     },
+
     module: {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
-                loaders: [
-                    "babel-loader?sourceRoot=./src"
-                ]
+                exclude: /node_modules/,
+                loader: "babel-loader"
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")//这样不会把css编译到js文件中，会单独生成
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
             }
         ]
     },
+
     plugins: [
         new webpack.ProvidePlugin({
             "$": "jquery",
-            "jQuery": "jquery",
+            "jQuery": "jquery"
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",//对应entry的vendor
+            name: "vendor",
             filename: "vendor.js",
             minChunks: Infinity
         }),
         new ExtractTextPlugin("./[name]/resource/bundle.css")
-    ]
+    ],
+
+    devServer:
+    {
+        proxy: {
+            "/api/*": {
+                target: "http://music.163.com/",
+                host: "music.163.com",
+                secure: false
+            }
+        }
+    }
 };

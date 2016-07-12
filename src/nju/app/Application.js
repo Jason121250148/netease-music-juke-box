@@ -1,18 +1,19 @@
-import View from "../view/View.js";
+import View from "../view/View";
 
-window.app = null;
+window.$app = null;
 
 export default class Application extends View
 {
     constructor(...args)
     {
         super(...args);
-        if (window.app === null)
+        if (window.$app === null)
         {
-            window.app = this;
+            window.$app = this;
         }
-        else {
-            throw new Error("Application is a singleton object.");
+        else
+        {
+            throw new Error("Application is a singleton object. It can only be constructed once.");
         }
     }
 
