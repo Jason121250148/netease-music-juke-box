@@ -39,7 +39,7 @@ export default class PlayListView extends View
             if (this.items.length > 0)
             {
                 this._items.splice(0, this._items.length);
-                this.$contanier.children().remove();
+                this.$contanier.children(this.getItemElementTag()).remove();
             }
             else {
 
@@ -82,6 +82,11 @@ export default class PlayListView extends View
 
     $createNewItem(type = 0)
     {
-        return $(`<li>`);
+        return $(`<${this.getItemElementTag()}>`);
+    }
+
+    getItemElementTag()
+    {
+        return "li";
     }
 }

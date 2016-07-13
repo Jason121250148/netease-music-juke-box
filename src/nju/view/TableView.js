@@ -39,8 +39,9 @@ export default class TableView extends ListView
         return this.$createNewItem();
     }
 
-    $createNewItem(itemType = 0)
+    getItemElementTag()
     {
-        return $("<tr/>");
+        return "tr";
     }
+
 }
