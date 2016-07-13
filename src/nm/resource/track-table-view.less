@@ -1,7 +1,41 @@
 .nm-track-table-view
 {
-    table-layout: fixed;//只要是table必须写
-    border-collapse: collapse;//只要是table必须写
+    //colgroup下col用align=center:自学
+    tr
+    {
+        line-height: @nm-list-item-height;
+        td
+        {
+            white-space:nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-left: 8px;
+            padding-right: 8px;
+        }
+    }
 
-    line-height: @nm-list-item-height;
+    thead//table比较特殊，不需要加>
+    {
+        td:not(:first-child)
+        {
+            border-left: 1px solid @nm-separator-color;
+        }
+        td.artists
+        {
+            width: 300px;
+        }
+        td.album
+        {
+            width: 300px;
+        }
+        td.playTime
+        {
+            width: 100px;
+        }
+    }
+
+    tbody
+    {
+
+    }
 }

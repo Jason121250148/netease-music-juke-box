@@ -1,0 +1,32 @@
+.nju-table-view
+{
+    table-layout: fixed;//只要是table必须写
+    border-collapse: collapse;//只要是table必须写
+    width: 100%;
+
+    tr
+    {
+        &.selected
+        {
+            color: @nju-selected-color;
+            background: @nju-selected-bg;
+        }
+        cursor: default;
+    }
+}
+
+.nju-table-view.striped
+{
+    tr:nth-child(odd):not(:last-child):not(.selected)
+    {
+        background: @nju-striped-color;
+    }
+    thead > tr
+    {
+        border-bottom: 1px solid @nm-separator-color;
+        &:not(:last-child)
+        {
+            border-right: 1px solid @nm-separator-color;
+        }
+    }
+}

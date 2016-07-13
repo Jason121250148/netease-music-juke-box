@@ -7,7 +7,6 @@ export default class TableView extends ListView
         super.init();
         this.removeStyleClass("nju-list-view");
         this.addStyleClass("nju-table-view");
-        this._initLayout();
     }
 
     _initLayout()
@@ -19,14 +18,19 @@ export default class TableView extends ListView
         this.$head.append(this.$headItem);
         this.$element.append(this.$head);
 
-        this.$contanier = $(`<tbody/>`);
-        this.$element.append(this.$contanier);
+        this.$container = $(`<tbody/>`);
+        this.$element.append(this.$container);
 
     }
 
     getElementTag()
     {
         return "table";
+    }
+
+    getItemElementTag()
+    {
+        return "tr";
     }
 
     renderHeadItem($headItem)
@@ -37,11 +41,6 @@ export default class TableView extends ListView
     $createHeadItem()
     {
         return this.$createNewItem();
-    }
-
-    getItemElementTag()
-    {
-        return "tr";
     }
 
 }
