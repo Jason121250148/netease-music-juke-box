@@ -1,10 +1,10 @@
-import Application from "./app/Application";
+import ApplicationController from "./app/ApplicationController";
 
 function main()
 {
-    const app = new Application();
-    app.placeAt(document.body);
-    app.run();
+    const appController = new ApplicationController();
+    appController.view.placeAt(document.body);
+    appController.run();
 }
 
 $(main);

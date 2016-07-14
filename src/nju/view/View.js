@@ -2,6 +2,18 @@ import ManagedObject from "../base/ManagedObject";
 
 export default class View extends ManagedObject
 {
+
+    constructor(id, controller = null)
+    {
+        super(id);
+        this._controller = controller;
+    }
+
+    get controller()
+    {
+        return this._controller;
+    }
+
     init()
     {
         super.init();
