@@ -39,6 +39,10 @@ export default class ListView extends View
     {
         return this._selection;
     }
+    get selectedId()
+    {
+        return this.getIdOfItem(this.selection);
+    }
     set selection(value)
     {
         this.selectItem(value);
@@ -51,12 +55,13 @@ export default class ListView extends View
 
     clearItems()
     {
+        this.selection = null;
         if (this.items !== null)
         {
             if (this.items.length > 0)
             {
                 this._items.splice(0, this._items.length);
-                this.$contanier.children(this.getItemElementTag()).remove();
+                this.$container.children(this.getItemElementTag()).remove();
             }
         }
         else {
@@ -103,11 +108,19 @@ export default class ListView extends View
             const $item = this.$getItem(item);
             $item.addClass("selected");
         }
+
+        this.trigger("selectionchanged", item);
     }
 
     getIdOfItem(item)
     {
-        return item.id;
+        if (item)
+        {
+            return item.id;
+        }
+        else {
+            return null;
+        }
     }
 
 
@@ -151,7 +164,6 @@ export default class ListView extends View
     {
         const $item = $(e.currentTarget);
         const item = $item.data("item");
-        console.log(this.getIdOfItem(item));
         this.selectItem(item);
     }
 }
