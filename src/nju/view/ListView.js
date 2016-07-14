@@ -151,7 +151,6 @@ export default class ListView extends View
     {
         const $item = $(e.currentTarget);
         const item = $item.data("item");
-        console.log(this.getIdOfItem(item));
         this.selectItem(item);
     }
 }
