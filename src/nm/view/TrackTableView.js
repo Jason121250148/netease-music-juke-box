@@ -7,6 +7,9 @@ export default class TrackTableView extends TableView
     {
         super.init();
         this.addStyleClass("nm-track-table-view striped");
+        this.$element.on("dblclick", this.getItemElementTag(), () => {
+            this.trigger("selectiontrackchanged");
+        });
     }
 
     $createNewItem()
