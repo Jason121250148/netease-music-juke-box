@@ -4,7 +4,6 @@ import PlayListView from "../view/PlayListView";
 import TrackTableView from "../view/TrackTableView.js";
 import PlayerView from "../view/PlayerView.js";
 
-import ServiceClient from "../../nm/service/ServiceClient.js";
 
 export default class Application extends NJUApplication
 {
@@ -47,18 +46,4 @@ export default class Application extends NJUApplication
         this.addSubview(this.playerView, this.$("> footer"));
     }
 
-    async run()
-    {
-        try {
-            await ServiceClient.getInstance().login();//等待返回结果再继续执行
-            this.playListView.items = await ServiceClient.getInstance().getUserPlayLists();
-            this.playListView.selection = this.playListView.items[0];
-
-            const playlist = await ServiceClient.getInstance().getPlayListDetail(this.playListView.items[0].id);
-            // console.log(playlist.tracks);
-            this.trackTableView.items = playlist.tracks;
-        } catch (e) {
-            console.error(e);
-        }
-    }
 }

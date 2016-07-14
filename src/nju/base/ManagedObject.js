@@ -46,6 +46,6 @@ export default class ManagedObject
             type,
             parameters
         };
-        this.eventEmitter.trigger(type, event);
+        this.eventEmitter.trigger(type, [ event ]);
     }
 }
