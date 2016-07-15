@@ -99,8 +99,11 @@ export default class ApplicationController extends NJUApplicationController
 
     _onSelectedPlayListChanged()
     {
-
-        if (this._selectedPlayList !== null)
+        if (this._selectedPlayList.id === "search")
+        {
+            this.playListView.selectItem(null);
+        }
+        if (this._selectedPlayList)
         {
             this.trackTableView.items = this._selectedPlayList.tracks;
         }
@@ -125,13 +128,15 @@ export default class ApplicationController extends NJUApplicationController
 
     _trackTableView_selectiontrackchanged(e)
     {
-        console.log(this.trackTableView.selection);
         this.selectedTrack = this.trackTableView.selection;
     }
 
-    _searchView_searchView(e)
+    async _searchView_searchView(e)
     {
-        // const results = await ServiceClient.getInstance().search(this.searchView.text);
-        console.log(this.searchView.text);
+        const results = await ServiceClient.getInstance().search(this.searchView.text);
+        this.selectedPlayList = {
+            id: "search",
+            tracks: results.songs
+        }
     }
 }
