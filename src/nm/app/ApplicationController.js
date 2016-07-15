@@ -71,6 +71,7 @@ export default class ApplicationController extends NJUApplicationController
         try {
             await ServiceClient.getInstance().login();//等待返回结果再继续执行
             await this._loadUserPlayList();
+            
         } catch (e) {
             console.error(e);
         }

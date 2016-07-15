@@ -1,20 +1,28 @@
 import View from "../view/View";
 
-window.$app = null;
-
 export default class Application extends View
 {
+    static _instance = null;
+
     constructor(...args)
     {
         super(...args);
-        if (window.$app === null)
+        if (Application._instance === null)
         {
-            window.$app = this;
+            Application._instance = this;
         }
-        else
+        else {
+            throw new Error("Only one Application allowed.");
+        }
+    }
+
+    static getInstance()
+    {
+        if (Application._instance === null)
         {
-            throw new Error("Application is a singleton object. It can only be constructed once.");
+            throw new Error("Application has not been instantiated yet");
         }
+        return Application._instance;
     }
 
     init()
@@ -23,8 +31,4 @@ export default class Application extends View
         this.addStyleClass("nju-app");
     }
 
-    run()
-    {
-
-    }
 }
