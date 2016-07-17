@@ -12,7 +12,7 @@ export default class ListView extends View
 
         this._initLayout();
 
-        this.$container.on("click", this.getItemElementTag(), this._onclick.bind(this));
+        this.$container.on("mousedown", this.getItemElementTag(), this._onclick.bind(this));
     }
 
     _initLayout()
@@ -47,7 +47,7 @@ export default class ListView extends View
     {
         return this.getIdOfItem(this.selection);
     }
-    
+
 
     getTypeOfItem(item)
     {
@@ -165,6 +165,7 @@ export default class ListView extends View
     {
         const $item = $(e.currentTarget);
         const item = $item.data("item");
+        this.trigger("itemclicked", { item });
         this.selectItem(item);
     }
 }

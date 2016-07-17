@@ -12,7 +12,7 @@ export default class ManagedObject
 
     init()
     {
-        
+
     }
 
     get id()
