@@ -39,14 +39,15 @@ export default class ListView extends View
     {
         return this._selection;
     }
-    get selectedId()
-    {
-        return this.getIdOfItem(this.selection);
-    }
     set selection(value)
     {
         this.selectItem(value);
     }
+    get selectedId()
+    {
+        return this.getIdOfItem(this.selection);
+    }
+    
 
     getTypeOfItem(item)
     {

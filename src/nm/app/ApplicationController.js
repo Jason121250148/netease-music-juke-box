@@ -57,10 +57,13 @@ export default class ApplicationController extends NJUApplicationController
     createApplication()
     {
         const app = new Application();
-        this.playListView = app.playListView;
-        this.trackTableView = app.trackTableView;
         this.playerView = app.playerView;
+        this.playListView = app.playListView;
+        this.searchView = app.searchView;
+        this.trackTableView = app.trackTableView;
+
         this.playListView.on("selectionchanged", this._playListView_selectionchanged.bind(this));
+        this.searchView.on("search", this._searchView_searchView.bind(this));
         this.trackTableView.on("selectiontrackchanged", this._trackTableView_selectiontrackchanged.bind(this));
 
         return app;
@@ -71,6 +74,7 @@ export default class ApplicationController extends NJUApplicationController
         try {
             await ServiceClient.getInstance().login();//等待返回结果再继续执行
             await this._loadUserPlayList();
+
         } catch (e) {
             console.error(e);
         }
@@ -95,8 +99,11 @@ export default class ApplicationController extends NJUApplicationController
 
     _onSelectedPlayListChanged()
     {
-
-        if (this._selectedPlayList !== null)
+        if (this._selectedPlayList.id === "search")
+        {
+            this.playListView.selectItem(null);
+        }
+        if (this._selectedPlayList)
         {
             this.trackTableView.items = this._selectedPlayList.tracks;
         }
@@ -121,7 +128,15 @@ export default class ApplicationController extends NJUApplicationController
 
     _trackTableView_selectiontrackchanged(e)
     {
-        console.log(this.trackTableView.selection);
         this.selectedTrack = this.trackTableView.selection;
+    }
+
+    async _searchView_searchView(e)
+    {
+        const results = await ServiceClient.getInstance().search(this.searchView.text);
+        this.selectedPlayList = {
+            id: "search",
+            tracks: results.songs
+        }
     }
 }
