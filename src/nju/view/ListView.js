@@ -39,15 +39,8 @@ export default class ListView extends View
             const valueLength = value.length;
             if (valueLength > this.countItems)
             {
-                if (this.countItems !== 0)
-                {
-                    this.addItems(value.slice(0, this.countItems), true);
-                }
+                this.addItems(value.slice(0, this.countItems), true);
                 this.addItems(value.slice(this.countItems, valueLength), false);
-            }
-            else if (valueLength === this.countItems)
-            {
-                this.addItems(value, true);
             }
             else
             {
@@ -96,7 +89,7 @@ export default class ListView extends View
 
     addItems(items, ifNew = false)
     {
-        if (items)
+        if (items && items.length > 0)
         {
             if (ifNew)
             {
@@ -115,7 +108,6 @@ export default class ListView extends View
 
     addItem(item, modify)
     {
-        console.log(item);
         if (modify !== null)
         {
             this.items[modify] = item;
