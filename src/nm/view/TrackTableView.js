@@ -25,9 +25,9 @@ export default class TrackTableView extends TableView
     }
 
 
-    renderItem(item, $item, modify)
+    renderItem(item, $item)
     {
-        super.renderItem(item, $item, modify);
+        super.renderItem(item, $item);
         $item.children(".name").text(item.name);
         $item.children(".artists").text(item.artists.map(artist => artist.name).join(", "));
         $item.children(".album").text(item.album.name);

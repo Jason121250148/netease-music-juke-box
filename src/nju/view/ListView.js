@@ -120,13 +120,13 @@ export default class ListView extends View
         {
             this.items[modify] = item;
             const $item = this.$container.children(this.getItemElementTag).eq(modify);
-            this.renderItem(item, $item, modify);
+            this.renderItem(item, $item);
         }
         else
         {
             this.items.push(item);
             const $item = this.$createItem(this.getTypeOfItem(item));
-            this.renderItem(item, $item, modify);
+            this.renderItem(item, $item);
             this.$container.append($item);
         }
     }
@@ -174,7 +174,7 @@ export default class ListView extends View
         this.addStyleClass("hide-selection");
     }
 
-    renderItem(item, $item, modify)
+    renderItem(item, $item)
     {
         $item.data("item", item);
         $item.attr("id", "i-" + this.getIdOfItem(item));
