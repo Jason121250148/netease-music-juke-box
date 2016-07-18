@@ -18,9 +18,9 @@ export default class PlayListView extends ListView
         return $li;
     }
 
-    renderItem(item, $item)
+    renderItem(item, $item, modify)
     {
-        super.renderItem(item, $item);
+        super.renderItem(item, $item, modify);
         $item.children(".text").text(item.name);
     }
 }
