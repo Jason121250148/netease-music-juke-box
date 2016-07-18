@@ -7,32 +7,42 @@ export default class PlayerView extends View
         super.init();
         this.addStyleClass("nm-player-view");
 
-        this._name = null;
+        this._music = null;
         this._initLayout();
     }
 
     _initLayout()
     {
         this.$element.append(`
+            <audio class = "audio" src="" controls autoplay loop>
+            </audio>
             <span class = "name"></span>
         `);
     }
 
-    set name(value)
+    set music(value)
     {
         if (value !== null)
         {
-            this._name = value.name;
-            this.$element.find("span.name").text(this._name);
+            this._music = value;
+            this.$element.find("span.name").text(this.music.name);
+            this.play(this.music.mp3Url);
         }
         else {
             this.$element.find("span.name").text("");
         }
+
     }
-    get name()
+    get music()
     {
-        return this._name;
+        return this._music;
     }
 
-
+    play(src)
+    {
+        if (src && src !== "")
+        {
+            this.$element.find("audio.audio").attr("src", src);
+        }
+    }
 }
