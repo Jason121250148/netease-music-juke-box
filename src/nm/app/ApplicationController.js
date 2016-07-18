@@ -89,9 +89,6 @@ export default class ApplicationController extends NJUApplicationController
         }
     }
 
-
-
-
     _onPlayListChanged()
     {
         this.playListView.items = this.playLists;
@@ -114,7 +111,7 @@ export default class ApplicationController extends NJUApplicationController
 
     _onSelectedTrackChanged()
     {
-        this.playerView.name = this._activeTrack;
+        this.playerView.music = this._activeTrack;
     }
 
     async _playListView_selectionchanged(e)
