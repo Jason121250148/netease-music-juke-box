@@ -12,7 +12,7 @@ export default class ViewController extends ManagedObject
 
     createView(options)
     {
-        return new View();
+        return new Error("create must be override in the derived class");
     }
 
     initView(options)

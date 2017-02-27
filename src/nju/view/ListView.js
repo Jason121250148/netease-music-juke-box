@@ -5,14 +5,16 @@ export default class ListView extends View
     init()
     {
         super.init();
-        this._items = null;
+        this._items = [];
         this._selection = null;
         this._$itemTemplates = [];
+        this._countItems = 0;
         this.addStyleClass("nju-list-view");
 
         this._initLayout();
 
         this.$container.on("mousedown", this.getItemElementTag(), this._onclick.bind(this));
+
     }
 
     _initLayout()
@@ -31,8 +33,22 @@ export default class ListView extends View
     }
     set items(value)
     {
-        this.clearItems();
-        this.addItems(value);
+        this.selection = null;
+        if (value && value.length > 0)
+        {
+            const valueLength = value.length;
+            if (valueLength > this.countItems)
+            {
+                this.addItems(value.slice(0, this.countItems), true);
+                this.addItems(value.slice(this.countItems, valueLength), false);
+            }
+            else
+            {
+                this.addItems(value.slice(0, valueLength), true);
+                this.clearItems(valueLength, this.countItems);
+            }
+            this.countItems = valueLength;
+        }
     }
 
     get selection()
@@ -43,54 +59,69 @@ export default class ListView extends View
     {
         this.selectItem(value);
     }
+
     get selectedId()
     {
         return this.getIdOfItem(this.selection);
     }
 
+    get countItems()
+    {
+        return this._countItems;
+    }
+    set countItems(value)
+    {
+        this._countItems = value;
+    }
 
     getTypeOfItem(item)
     {
         return 0;
     }
 
-    clearItems()
+    clearItems(start, end)
     {
-        this.selection = null;
-        if (this.items !== null)
+        for (let i = start; i < end; i++) {
+            this.items.splice(start, end - start + 1);
+            this.$container.children(`:nth-child(${start + 1})`).remove();
+        }
+    }
+
+    addItems(items, ifNew = false)
+    {
+        if (items && items.length > 0)
         {
-            if (this.items.length > 0)
+            if (ifNew)
             {
-                this._items.splice(0, this._items.length);
-                this.$container.children(this.getItemElementTag()).remove();
+                items.forEach((item, i) => {
+                    this.addItem(item, i);
+                });
+            }
+            else
+            {
+                items.forEach(item => {
+                    this.addItem(item, null);
+                });
             }
         }
-        else {
-            this._items = [];
+    }
+
+    addItem(item, modify)
+    {
+        if (modify !== null)
+        {
+            this.items[modify] = item;
+            const $item = this.$container.children(this.getItemElementTag).eq(modify);
+            this.renderItem(item, $item);
+        }
+        else
+        {
+            this.items.push(item);
+            const $item = this.$createItem(this.getTypeOfItem(item));
+            this.renderItem(item, $item);
+            this.$container.append($item);
         }
     }
-
-    addItems(items)
-    {
-        if(items && items.length) {
-            items.forEach(item => {
-                this.addItem(item);
-            });
-        }
-    }
-
-    addItem(item)
-    {
-        this.items.push(item);
-        const $item = this.$createItem(this.getTypeOfItem(item));
-        this.renderItem(item, $item);
-        this.$container.append($item);
-    }
-
-
-
-
-
 
     selectItem(item = null)
     {
@@ -125,11 +156,15 @@ export default class ListView extends View
     }
 
 
+    showSelection()
+    {
+        this.removeStyleClass("hide-selection");
+    }
 
-
-
-
-
+    hideSelection()
+    {
+        this.addStyleClass("hide-selection");
+    }
 
     renderItem(item, $item)
     {
@@ -142,7 +177,7 @@ export default class ListView extends View
         if (!this._$itemTemplates[type]) {
             this._$itemTemplates[type] = this.$createNewItem(type);
         }
-        return this._$itemTemplates[type].clone();
+        return this._$itemTemplates[type].clone();//可以大大提高效率
     }
 
     $createNewItem(type = 0)
